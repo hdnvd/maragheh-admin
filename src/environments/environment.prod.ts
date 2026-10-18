@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.maraghecity.ir/v1',
+  apiUrl: 'https://api.maraghehcity.ir/v1',
 };
