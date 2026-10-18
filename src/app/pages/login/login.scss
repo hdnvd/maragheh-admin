@@ -5,7 +5,7 @@
   padding: 16px;
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 40%),
-    linear-gradient(135deg, #5a0000, #c00000 55%, #e03a3a);
+    linear-gradient(135deg, var(--color-action-hover), var(--color-brand-primary) 55%, var(--color-brand-secondary));
 }
 
 .panel {
@@ -19,7 +19,7 @@
 }
 
 .hero {
-  background: #fff6f5;
+  background: var(--color-bg-canvas);
   padding: 48px 32px;
   display: flex;
   flex-direction: column;
@@ -34,13 +34,13 @@
 
   h1 {
     margin: 16px 0 4px;
-    color: var(--brand);
+    color: var(--color-brand-primary);
     font-size: 34px;
   }
 
   p {
     margin: 0;
-    color: #6b6260;
+    color: var(--color-text-secondary);
     line-height: 1.9;
   }
 }
@@ -63,8 +63,8 @@
 }
 
 .error {
-  color: #b3261e;
-  background: #ffe9e6;
+  color: var(--color-status-error);
+  background: var(--color-status-error-bg);
   border-radius: 10px;
   padding: 8px 12px;
   margin-bottom: 12px;

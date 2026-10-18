@@ -78,15 +78,15 @@ import { FaPipe } from '../../shared/fa';
   styles: `
     .grow { flex: 1; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
-    .post { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid #f0ebea; border-radius: 16px; }
+    .post { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--color-border-default); border-radius: 16px; }
     .post.draft { opacity: .55; }
-    .cover { width: 84px; height: 72px; border-radius: 12px; overflow: hidden; background: #f3eeed; display: grid; place-items: center; color: #b9a9a6; flex-shrink: 0; }
+    .cover { width: 84px; height: 72px; border-radius: 12px; overflow: hidden; background: var(--color-bg-canvas); display: grid; place-items: center; color: var(--color-brand-accent); flex-shrink: 0; }
     .cover.round { width: 72px; border-radius: 50%; }
     .cover img { width: 100%; height: 100%; object-fit: cover; }
     .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
     .title { font-weight: 700; color: inherit; text-decoration: none; }
-    .title:hover { color: var(--brand); }
-    .sub { font-size: 12px; color: var(--brand); }
+    .title:hover { color: var(--color-brand-secondary); }
+    .sub { font-size: 12px; color: var(--color-brand-secondary); }
     .small { font-size: 11px; }
     .actions { display: flex; align-items: center; }
   `,

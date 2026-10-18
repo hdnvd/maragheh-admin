@@ -1,10 +1,33 @@
 @use '@angular/material' as mat;
+@use './theme-colors' as theme;
 
+// ---------- Design tokens ----------
 :root {
-  --brand: #c00000;
-  --brand-dark: #7a0000;
-  --charcoal: #363636;
+  --color-brand-primary: #153b50;
+  --color-brand-secondary: #187c80;
+  --color-brand-accent: #74c5bc;
+  --color-brand-gold: #e5b75c;
+  --color-action-primary: #153b50;
+  --color-action-hover: #0e2d3d;
+  --color-action-selected: #d7e7ea;
+  --color-bg-canvas: #f3f7f8;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-alt: #d7e7ea;
+  --color-text-primary: #26343b;
+  --color-text-secondary: #52656c;
+  --color-text-inverse: #ffffff;
+  --color-border-default: #d4e0e3;
+  --color-focus-ring: #1769aa;
+  --color-status-success: #237547;
+  --color-status-warning: #946200;
+  --color-status-error: #b42318;
+  // light tints of the status colors for badges / alerts
+  --color-status-success-bg: #e3f1e8;
+  --color-status-warning-bg: #f7ecd4;
+  --color-status-error-bg: #fbe7e5;
+
   --radius: 16px;
+  --shadow-card: 0 1px 2px rgba(21, 59, 80, 0.06), 0 4px 16px rgba(21, 59, 80, 0.06);
 }
 
 html {
@@ -13,8 +36,8 @@ html {
   @include mat.theme(
     (
       color: (
-        primary: mat.$red-palette,
-        tertiary: mat.$orange-palette,
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
       ),
       typography: (
         plain-family: 'Vazirmatn, Tahoma, sans-serif',
@@ -23,10 +46,36 @@ html {
       density: 0,
     )
   );
+  // Pin the exact token colors on top of the generated tonal palettes.
+  @include mat.theme-overrides(
+    (
+      primary: #153b50,
+      on-primary: #ffffff,
+      primary-container: #d7e7ea,
+      on-primary-container: #153b50,
+      secondary: #187c80,
+      on-secondary: #ffffff,
+      secondary-container: #d7e7ea,
+      on-secondary-container: #153b50,
+      tertiary: #187c80,
+      background: #f3f7f8,
+      surface: #ffffff,
+      surface-container-lowest: #ffffff,
+      surface-container-low: #ffffff,
+      surface-container: #f3f7f8,
+      surface-container-high: #eef4f5,
+      surface-container-highest: #d7e7ea,
+      on-surface: #26343b,
+      on-surface-variant: #52656c,
+      outline: #9fb3b9,
+      outline-variant: #d4e0e3,
+      error: #b42318,
+    )
+  );
   @include mat.toolbar-overrides(
     (
-      container-background-color: var(--brand),
-      container-text-color: #fff,
+      container-background-color: var(--color-brand-primary),
+      container-text-color: var(--color-text-inverse),
     )
   );
 }
@@ -34,14 +83,19 @@ html {
 body {
   margin: 0;
   height: 100%;
-  background: #f6f3f2;
-  color: var(--mat-sys-on-surface);
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
   font: var(--mat-sys-body-medium);
   font-family: Vazirmatn, Tahoma, sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .material-symbols-rounded {
@@ -67,13 +121,15 @@ body {
     font-weight: 700;
     margin: 0;
     flex: 1;
+    color: var(--color-brand-primary);
   }
 }
 
 .card {
-  background: #fff;
+  background: var(--color-bg-surface);
   border-radius: var(--radius);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-card);
   padding: 20px;
 }
 
@@ -90,7 +146,7 @@ body {
 }
 
 .muted {
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--color-text-secondary);
 }
 
 .ltr {
@@ -109,27 +165,38 @@ body {
   white-space: nowrap;
 
   &.pending {
-    background: #fff3d6;
-    color: #8a5a00;
+    background: var(--color-status-warning-bg);
+    color: var(--color-status-warning);
   }
   &.approved {
-    background: #dff3e6;
-    color: #1d6b3d;
+    background: var(--color-status-success-bg);
+    color: var(--color-status-success);
   }
   &.rejected {
-    background: #ffe1dd;
-    color: #8e0000;
+    background: var(--color-status-error-bg);
+    color: var(--color-status-error);
   }
   &.neutral {
-    background: #eee;
-    color: #555;
+    background: var(--color-bg-surface-alt);
+    color: var(--color-brand-primary);
   }
+}
+
+.error-text {
+  color: var(--color-status-error);
+}
+
+.alert-error {
+  color: var(--color-status-error);
+  background: var(--color-status-error-bg);
+  border-radius: 10px;
+  padding: 8px 12px;
 }
 
 .empty {
   padding: 48px 16px;
   text-align: center;
-  color: var(--mat-sys-on-surface-variant);
+  color: var(--color-text-secondary);
 }
 
 .thumb {
@@ -137,7 +204,7 @@ body {
   height: 48px;
   object-fit: cover;
   border-radius: 8px;
-  background: #eee;
+  background: var(--color-bg-surface-alt);
   display: block;
 }
 

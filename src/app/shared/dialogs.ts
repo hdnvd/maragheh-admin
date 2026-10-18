@@ -24,7 +24,7 @@ interface ConfirmData {
       <button mat-flat-button [mat-dialog-close]="true" [class.danger]="data.danger">{{ data.ok ?? 'تایید' }}</button>
     </mat-dialog-actions>
   `,
-  styles: `.danger { --mat-button-filled-container-color: #b3261e; }`,
+  styles: `.danger { --mat-button-filled-container-color: var(--color-status-error); }`,
 })
 export class ConfirmDialog {
   readonly data = inject<ConfirmData>(MAT_DIALOG_DATA);

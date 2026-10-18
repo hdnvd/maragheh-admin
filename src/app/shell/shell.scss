@@ -24,7 +24,7 @@
   strong {
     display: block;
     font-size: 20px;
-    color: var(--brand);
+    color: var(--color-brand-primary);
   }
 
   span {
@@ -39,18 +39,18 @@ mat-nav-list a {
   width: auto;
 
   &.active {
-    background: #ffe5e1;
+    background: var(--color-action-selected);
 
     mat-icon,
     [matListItemTitle] {
-      color: var(--brand) !important;
+      color: var(--color-brand-secondary) !important;
       font-weight: 700;
     }
   }
 }
 
 .count {
-  background: var(--brand);
+  background: var(--color-brand-secondary);
   color: #fff;
   border-radius: 999px;
   padding: 0 8px;
@@ -63,7 +63,7 @@ mat-nav-list a {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: linear-gradient(135deg, #7a0000, #c00000 60%, #d42020);
+  background: linear-gradient(135deg, var(--color-action-hover), var(--color-brand-primary) 60%, var(--color-brand-secondary));
 }
 
 .spacer {

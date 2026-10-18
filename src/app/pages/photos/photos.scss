@@ -35,7 +35,7 @@
   position: relative;
   display: block;
   aspect-ratio: 4 / 3;
-  background: #eee;
+  background: var(--color-bg-surface-alt);
 
   img {
     width: 100%;
@@ -57,7 +57,7 @@
   p {
     margin: 4px 0;
     font-size: 13px;
-    color: #555;
+    color: var(--color-text-secondary);
     line-height: 1.8;
   }
 }
@@ -68,7 +68,7 @@
   gap: 2px;
   margin-top: 6px;
   font-size: 12px;
-  color: #6b6260;
+  color: var(--color-text-secondary);
 
   span {
     display: inline-flex;
@@ -83,15 +83,15 @@
   }
 
   .blocked {
-    color: #b3261e;
+    color: var(--color-status-error);
   }
 }
 
 .reason {
   margin-top: 6px;
   font-size: 12px;
-  color: #8e0000;
-  background: #ffe9e6;
+  color: var(--color-status-error);
+  background: var(--color-status-error-bg);
   padding: 6px 10px;
   border-radius: 8px;
 }
@@ -108,7 +108,7 @@
   padding: 8px 12px 12px;
 
   .ok {
-    --mat-button-filled-container-color: #1d6b3d;
+    --mat-button-filled-container-color: var(--color-status-success);
   }
 
   .spacer {

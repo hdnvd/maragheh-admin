@@ -41,10 +41,10 @@
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   overflow: hidden;
-  background: #f3eeed;
+  background: var(--color-bg-canvas);
   display: grid;
   place-items: center;
-  color: #b9a9a6;
+  color: var(--color-brand-accent);
 
   &.round {
     width: 180px;

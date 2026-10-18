@@ -46,11 +46,11 @@ import { errorMessage } from '../../core/auth.interceptor';
   `,
   styles: `
     .content { display: flex; flex-direction: column; gap: 8px; min-width: min(460px, 85vw); }
-    .drop { border: 2px dashed #d8d0ce; border-radius: 16px; height: 220px; background: #faf7f6; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #c00000; overflow: hidden; padding: 0; font: inherit; }
+    .drop { border: 2px dashed var(--color-border-default); border-radius: 16px; height: 220px; background: var(--color-bg-canvas); cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--color-brand-primary); overflow: hidden; padding: 0; font: inherit; }
     .drop img { width: 100%; height: 100%; object-fit: cover; }
     .drop mat-icon { font-size: 40px; width: 40px; height: 40px; }
-    .error { color: #b3261e; }
+    .error { color: var(--color-status-error); }
   `,
 })
 export class UploadDialog {

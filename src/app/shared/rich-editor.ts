@@ -54,13 +54,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ></div>
   `,
   styles: `
-    :host { display: block; border: 1px solid #d8d0ce; border-radius: 12px; overflow: hidden; background: #fff; }
-    :host(:focus-within) { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand); }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; background: #faf7f6; border-bottom: 1px solid #eee; }
+    :host { display: block; border: 1px solid var(--color-border-default); border-radius: 12px; overflow: hidden; background: #fff; }
+    :host(:focus-within) { border-color: var(--color-brand-secondary); box-shadow: 0 0 0 1px var(--color-brand-secondary); }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 2px; padding: 4px; background: var(--color-bg-canvas); border-bottom: 1px solid var(--color-bg-surface-alt); }
     .area { min-height: 280px; max-height: 60vh; overflow: auto; padding: 14px 16px; line-height: 2.1; outline: none; text-align: justify; }
-    .area:empty::before { content: attr(data-placeholder); color: #aaa; }
+    .area:empty::before { content: attr(data-placeholder); color: var(--color-brand-accent); }
     .area ::ng-deep h3 { margin: 12px 0 6px; }
-    .area ::ng-deep blockquote { border-right: 4px solid var(--brand); margin: 8px 0; padding: 4px 12px; background: #fff6f5; }
+    .area ::ng-deep blockquote { border-right: 4px solid var(--color-brand-secondary); margin: 8px 0; padding: 4px 12px; background: var(--color-bg-canvas); }
   `,
 })
 export class RichEditor implements ControlValueAccessor {

@@ -75,14 +75,14 @@ import { SourceDialog } from './source-dialog';
     .source { display: flex; flex-direction: column; gap: 10px; }
     .source.off { opacity: .65; }
     .head { display: flex; align-items: center; gap: 12px; }
-    .type { background: #ffe1dd; color: #c00000; border-radius: 12px; width: 44px; height: 44px; line-height: 44px; text-align: center; }
+    .type { background: var(--color-action-selected); color: var(--color-brand-primary); border-radius: 12px; width: 44px; height: 44px; line-height: 44px; text-align: center; }
     .name { flex: 1; display: flex; flex-direction: column; }
     .name span { font-size: 12px; }
-    .url { font-size: 12px; color: #1f4fa3; word-break: break-all; text-align: left; }
-    .stats { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #555; }
+    .url { font-size: 12px; color: var(--color-brand-secondary); word-break: break-all; text-align: left; }
+    .stats { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--color-text-secondary); }
     .stats span { display: inline-flex; align-items: center; gap: 4px; }
     .stats mat-icon { font-size: 18px; width: 18px; height: 18px; }
-    .err { display: flex; gap: 6px; color: #b3261e; background: #ffe9e6; padding: 8px 10px; border-radius: 10px; font-size: 12px; word-break: break-word; }
+    .err { display: flex; gap: 6px; color: var(--color-status-error); background: var(--color-status-error-bg); padding: 8px 10px; border-radius: 10px; font-size: 12px; word-break: break-word; }
     .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .actions mat-spinner { display: inline-block; margin-left: 6px; }
   `,

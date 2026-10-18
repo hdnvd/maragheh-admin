@@ -35,7 +35,7 @@ import { Ui } from '../../shared/dialogs';
   `,
   styles: `
     .form { max-width: 460px; display: flex; flex-direction: column; gap: 4px; }
-    .error { color: #b3261e; margin-bottom: 8px; }
+    .error { color: var(--color-status-error); margin-bottom: 8px; }
   `,
 })
 export class SettingsPage {

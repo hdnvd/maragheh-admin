@@ -30,9 +30,9 @@ import { News } from '../../core/models';
     }
   `,
   styles: `
-    .meta { color: #6b6260; font-size: 13px; margin-bottom: 12px; }
+    .meta { color: var(--color-text-secondary); font-size: 13px; margin-bottom: 12px; }
     .cover { width: 100%; border-radius: 14px; margin-bottom: 12px; }
-    .lead { font-weight: 700; line-height: 2; background: #f6f3f2; padding: 12px; border-radius: 12px; }
+    .lead { font-weight: 700; line-height: 2; background: var(--color-bg-canvas); padding: 12px; border-radius: 12px; }
     .body { line-height: 2.1; text-align: justify; }
     .body ::ng-deep img { max-width: 100%; border-radius: 12px; }
   `,

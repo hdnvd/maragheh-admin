@@ -55,7 +55,7 @@ import { Source } from '../../core/models';
   `,
   styles: `
     .content { display: flex; flex-direction: column; gap: 4px; min-width: min(480px, 85vw); }
-    .error { color: #b3261e; margin-top: 8px; }
+    .error { color: var(--color-status-error); margin-top: 8px; }
   `,
 })
 export class SourceDialog {
