@@ -3,7 +3,11 @@ import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
-/** Adds the bearer token and signs out on 401/403 from admin endpoints. */
+/**
+ * Adds the bearer token and signs out when the API says the token is no longer valid (401).
+ * A 403 is not treated as "logged out": shared-hosting firewalls (ModSecurity/Imunify) can answer
+ * individual requests with their own 403 page, and that must not end the admin's session.
+ */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
   const token = auth.token();
@@ -14,7 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authed).pipe(
     catchError((err: HttpErrorResponse) => {
       const isLogin = req.url.endsWith('/admin/login');
-      if (!isLogin && (err.status === 401 || err.status === 403)) {
+      if (!isLogin && err.status === 401) {
         auth.logout(false);
       }
       return throwError(() => err);
