@@ -1,0 +1,64 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    #drawer
+    position="start"
+    [mode]="mobile() ? 'over' : 'side'"
+    [opened]="!mobile()"
+    class="sidenav"
+  >
+    <div class="brand">
+      <img src="logo.png" alt="" />
+      <div>
+        <strong>مراغه</strong>
+        <span>پنل مدیریت</span>
+      </div>
+    </div>
+
+    <mat-nav-list>
+      @for (item of nav; track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: !!item.exact }"
+          (click)="mobile() && drawer.close()"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+          @if (item.path === '/photos' && pending() > 0) {
+            <span matListItemMeta class="count">{{ pending() | fa }}</span>
+          }
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      @if (mobile()) {
+        <button mat-icon-button (click)="drawer.toggle()" aria-label="منو">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="menu" class="user-btn">
+        <mat-icon>account_circle</mat-icon>
+        {{ auth.user()?.name }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item routerLink="/settings">
+          <mat-icon>key</mat-icon>
+          <span>تغییر رمز عبور</span>
+        </a>
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>logout</mat-icon>
+          <span>خروج</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main>
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

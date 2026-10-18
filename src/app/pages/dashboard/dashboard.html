@@ -1,0 +1,81 @@
+<div class="page">
+  <div class="page-head">
+    <h1>داشبورد</h1>
+    <button mat-stroked-button (click)="load()"><mat-icon>refresh</mat-icon> بروزرسانی</button>
+  </div>
+
+  @if (error()) {
+    <div class="card empty">{{ error() }}</div>
+  } @else if (!data()) {
+    <mat-progress-bar mode="indeterminate" />
+  } @else {
+    @let d = data()!;
+    <div class="stats">
+      <a class="stat red" routerLink="/news">
+        <mat-icon>newspaper</mat-icon>
+        <div><strong>{{ d.news_total | fa }}</strong><span>خبر ({{ d.news_today | fa }} خبر امروز)</span></div>
+      </a>
+      <a class="stat amber" routerLink="/photos">
+        <mat-icon>hourglass_top</mat-icon>
+        <div><strong>{{ d.photos_pending | fa }}</strong><span>عکس در انتظار بررسی</span></div>
+      </a>
+      <a class="stat green" routerLink="/photos">
+        <mat-icon>photo_library</mat-icon>
+        <div><strong>{{ d.photos_approved | fa }}</strong><span>عکس منتشر شده</span></div>
+      </a>
+      <a class="stat blue" routerLink="/attractions">
+        <mat-icon>landscape</mat-icon>
+        <div><strong>{{ d.attractions | fa }}</strong><span>جاذبه گردشگری</span></div>
+      </a>
+      <a class="stat purple" routerLink="/celebrities">
+        <mat-icon>workspace_premium</mat-icon>
+        <div><strong>{{ d.celebrities | fa }}</strong><span>مشاهیر</span></div>
+      </a>
+      <a class="stat gray" routerLink="/users">
+        <mat-icon>group</mat-icon>
+        <div><strong>{{ d.app_users | fa }}</strong><span>کاربر اپلیکیشن</span></div>
+      </a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>اخبار دریافت‌شده در ۱۴ روز اخیر</h3>
+        <div class="chart">
+          @for (day of d.news_per_day; track day.label) {
+            <div class="bar-col" [title]="day.label + ': ' + (day.count | fa)">
+              <span class="val">{{ day.count | fa }}</span>
+              <div class="bar" [style.height.%]="(day.count / maxPerDay()) * 100"></div>
+              <span class="lbl">{{ day.label.split(' ')[0] }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>وضعیت منابع خبری</h3>
+        @for (s of d.sources; track s.id) {
+          <div class="source">
+            <mat-icon [class.ok]="!s.last_error" [class.bad]="!!s.last_error">
+              {{ s.last_error ? 'error' : 'check_circle' }}
+            </mat-icon>
+            <div class="info">
+              <strong>{{ s.name }}</strong>
+              <span class="muted">
+                {{ s.news_count | fa }} خبر · آخرین بررسی: {{ s.last_crawled_at_fa || 'هنوز اجرا نشده' }}
+              </span>
+              @if (s.last_error) {
+                <span class="err">{{ s.last_error }}</span>
+              }
+            </div>
+            @if (!s.is_active) {
+              <span class="badge neutral">غیرفعال</span>
+            }
+          </div>
+        } @empty {
+          <div class="empty">منبعی ثبت نشده است</div>
+        }
+        <a mat-button routerLink="/sources">مدیریت منابع</a>
+      </div>
+    </div>
+  }
+</div>

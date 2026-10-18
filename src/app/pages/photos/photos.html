@@ -1,0 +1,83 @@
+<div class="page">
+  <div class="page-head">
+    <h1>تصاویر مراغه</h1>
+    <button mat-flat-button (click)="upload()"><mat-icon>add_photo_alternate</mat-icon> افزودن عکس</button>
+  </div>
+
+  <mat-button-toggle-group [value]="status()" (change)="setStatus($event.value)" class="tabs">
+    <mat-button-toggle value="pending"><mat-icon>hourglass_top</mat-icon> در انتظار بررسی</mat-button-toggle>
+    <mat-button-toggle value="approved"><mat-icon>check_circle</mat-icon> تایید شده</mat-button-toggle>
+    <mat-button-toggle value="rejected"><mat-icon>block</mat-icon> رد شده</mat-button-toggle>
+    <mat-button-toggle value=""><mat-icon>apps</mat-icon> همه</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  <div class="grid">
+    @for (p of items(); track p.id) {
+      <div class="photo card">
+        <a class="img" [href]="p.image" target="_blank" rel="noopener">
+          <img [src]="p.thumb" [alt]="p.title" loading="lazy" />
+          <span class="badge {{ p.status }}">{{ labels[p.status] }}</span>
+        </a>
+        <div class="info">
+          <strong>{{ p.title }}</strong>
+          @if (p.description) {
+            <p>{{ p.description }}</p>
+          }
+          <div class="meta">
+            @if (p.user) {
+              <span class="user" [class.blocked]="p.user.is_blocked">
+                <mat-icon>person</mat-icon>
+                {{ p.user.name }} · <span class="ltr">{{ p.user.phone | fa }}</span>
+                @if (p.user.is_blocked) {
+                  <span class="badge rejected">مسدود</span>
+                }
+              </span>
+            } @else {
+              <span class="user"><mat-icon>shield_person</mat-icon> مدیر</span>
+            }
+            <span><mat-icon>schedule</mat-icon>{{ p.created_at_full_fa }}</span>
+            <span><mat-icon>aspect_ratio</mat-icon><span class="ltr">{{ p.width | fa }}×{{ p.height | fa }}</span></span>
+          </div>
+          @if (p.status === 'rejected' && p.reject_reason) {
+            <div class="reason">دلیل رد: {{ p.reject_reason }}</div>
+          }
+          @if (p.reviewer) {
+            <div class="muted small">بررسی: {{ p.reviewer }} — {{ p.reviewed_at_fa }}</div>
+          }
+        </div>
+        <div class="actions">
+          @if (p.status !== 'approved') {
+            <button mat-flat-button class="ok" (click)="approve(p)"><mat-icon>check</mat-icon> تایید</button>
+          }
+          @if (p.status !== 'rejected') {
+            <button mat-stroked-button (click)="reject(p)"><mat-icon>close</mat-icon> رد</button>
+          }
+          <span class="spacer"></span>
+          <button mat-icon-button [matMenuTriggerFor]="more" aria-label="بیشتر"><mat-icon>more_vert</mat-icon></button>
+          <mat-menu #more="matMenu">
+            <button mat-menu-item (click)="editTitle(p)"><mat-icon>edit</mat-icon> ویرایش عنوان</button>
+            @if (p.user) {
+              <button mat-menu-item (click)="blockUser(p)">
+                <mat-icon>{{ p.user.is_blocked ? 'lock_open' : 'block' }}</mat-icon>
+                {{ p.user.is_blocked ? 'رفع مسدودی کاربر' : 'مسدود کردن کاربر' }}
+              </button>
+            }
+            <button mat-menu-item (click)="remove(p)"><mat-icon>delete</mat-icon> حذف عکس</button>
+          </mat-menu>
+        </div>
+      </div>
+    } @empty {
+      @if (!loading()) {
+        <div class="card empty full-row">
+          {{ status() === 'pending' ? 'عکسی در انتظار بررسی نیست 🎉' : 'عکسی یافت نشد' }}
+        </div>
+      }
+    }
+  </div>
+
+  <mat-paginator [length]="total()" [pageSize]="24" [pageIndex]="page() - 1" (page)="onPage($event)" />
+</div>

@@ -1,0 +1,77 @@
+<div class="page">
+  <div class="page-head">
+    <h1>اخبار مراغه</h1>
+    <span class="muted">{{ total() | fa }} خبر</span>
+  </div>
+
+  <div class="card">
+    <div class="filters">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="grow">
+        <mat-label>جستجو</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput [ngModel]="q()" (ngModelChange)="q.set($event)" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>منبع</mat-label>
+        <mat-select [ngModel]="sourceId()" (ngModelChange)="sourceId.set($event); reload()">
+          <mat-option [value]="null">همه منابع</mat-option>
+          @for (s of sources(); track s.id) {
+            <mat-option [value]="s.id">{{ s.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>وضعیت</mat-label>
+        <mat-select [ngModel]="visible()" (ngModelChange)="visible.set($event); reload()">
+          <mat-option value="">همه</mat-option>
+          <mat-option value="1">نمایش در اپ</mat-option>
+          <mat-option value="0">پنهان</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @if (loading()) {
+      <mat-progress-bar mode="indeterminate" />
+    }
+
+    <div class="list">
+      @for (n of items(); track n.id) {
+        <div class="item" [class.hidden]="!n.is_visible">
+          @if (n.image) {
+            <img [src]="n.image" alt="" loading="lazy" referrerpolicy="no-referrer" />
+          } @else {
+            <div class="noimg"><mat-icon>image</mat-icon></div>
+          }
+          <div class="body">
+            <a class="title" (click)="preview(n)">{{ n.title }}</a>
+            <div class="meta">
+              <span class="badge neutral">{{ n.source?.name }}</span>
+              <span>{{ n.published_at_fa }}</span>
+            </div>
+            @if (n.summary) {
+              <p>{{ n.summary }}</p>
+            }
+          </div>
+          <div class="actions">
+            <mat-slide-toggle
+              [checked]="n.is_visible"
+              (change)="toggle(n)"
+              matTooltip="نمایش در اپلیکیشن"
+            ></mat-slide-toggle>
+            <a mat-icon-button [href]="n.url" target="_blank" rel="noopener" matTooltip="مشاهده در منبع">
+              <mat-icon>open_in_new</mat-icon>
+            </a>
+          </div>
+        </div>
+      } @empty {
+        @if (!loading()) {
+          <div class="empty">خبری یافت نشد</div>
+        }
+      }
+    </div>
+
+    <mat-paginator [length]="total()" [pageSize]="20" [pageIndex]="page() - 1" (page)="onPage($event)" />
+  </div>
+</div>
