@@ -25,13 +25,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 /** First readable message from a Laravel error response. */
 export function errorMessage(err: unknown, fallback = 'خطا در ارتباط با سرور'): string {
   if (err instanceof HttpErrorResponse) {
+    // status 0 = network failure; err.error is then the browser's English TypeError ("Failed to fetch")
+    if (err.status === 0) return 'سرور در دسترس نیست. اتصال اینترنت را بررسی کنید.';
     const body = err.error;
     if (body?.errors) {
       const first = Object.values(body.errors as Record<string, string[]>)[0];
       if (first?.length) return first[0];
     }
     if (body?.message) return body.message;
-    if (err.status === 0) return 'سرور در دسترس نیست. اتصال اینترنت را بررسی کنید.';
   }
   return fallback;
 }
